@@ -1,3 +1,71 @@
+# AGENTS.md – AI Agent Collaboration Guide
+
+This file defines how Claude Code, Codex, Gemini, and other coding agents collaborate to build BriefBox.
+
+---
+
+## Roles
+
+### Claude Code
+- Primary assistant for architecture decisions, refactors, and TypeScript correctness
+- Reads `CLAUDE.md` at the start of every session
+- Outputs clean, production-ready code with context
+
+### Codex
+- Secondary assistant for **fast scaffolding and boilerplate**
+- Best for generating repetitive code (config files, schema, migration scripts)
+
+### Gemini (Optional)
+- UI/UX experiments
+- Tailwind component design and layout prototyping
+
+---
+
+## Prompting Style
+- Always load project context from `CLAUDE.md`
+- Summarize the plan before coding
+- Output code **file-by-file** with headers: `### path/to/file.ts`
+- Validate JSON and code syntax before responding
+- Include setup commands when necessary
+
+---
+
+## Commands & Slash Aliases
+| Command             | Purpose                                        |
+|---------------------|------------------------------------------------|
+| `/briefbox:setup`   | Scaffold Milestone 0 project structure         |
+| `/briefbox:db`      | Edit schema, migrations, or Drizzle config     |
+| `/briefbox:ingest`  | Work on Gmail/RSS ingestion pipeline           |
+| `/briefbox:summary` | Work on summarization routes + prompts         |
+| `/briefbox:ui`      | Design UI screens in Tailwind/shadcn/ui        |
+| `/briefbox:deploy`  | Prep for Vercel deployment                     |
+
+---
+
+## Environment Assumptions
+- Node.js v20+
+- pnpm as package manager
+- Supabase Postgres with connection pooling
+- Vercel for serverless deployment
+- Tailwind/shadcn installed
+
+---
+
+## Collaboration Rules
+- Agents communicate through concise commits and diffs
+- Avoid regenerating boilerplate; focus on diffs or custom code
+- Claude Code drives architecture; Codex fills repetitive code gaps
+- Every milestone change should update `MILESTONES.md`
+
+---
+
+## Long-Term Workflow
+1. Start every session with: “Load CLAUDE.md + MILESTONES.md”
+2. Pick a milestone or feature
+3. Plan steps in bullet points
+4. Generate code in structured, reusable format
+5. Confirm with tests or `/health` endpoints
+
 # Repository Guidelines
 
 ## Project Structure & Module Organization
