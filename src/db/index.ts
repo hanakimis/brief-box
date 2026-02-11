@@ -2,24 +2,33 @@ import { Pool } from 'pg';
 import { drizzle, NodePgDatabase } from 'drizzle-orm/node-postgres';
 
 declare global {
-  // eslint-disable-next-line no-var
   var __briefbox_pool: Pool | undefined;
-  // eslint-disable-next-line no-var
   var __briefbox_db: NodePgDatabase | undefined;
 }
 
-const connectionString = process.env.DATABASE_URL;
-if (!connectionString) {
-  throw new Error('DATABASE_URL is not set');
+function getPool(): Pool {
+  if (!globalThis.__briefbox_pool) {
+    const connectionString = process.env.DATABASE_URL;
+    if (!connectionString) {
+      throw new Error('DATABASE_URL is not set');
+    }
+    globalThis.__briefbox_pool = new Pool({ connectionString });
+  }
+  return globalThis.__briefbox_pool;
 }
 
-export const pool: Pool =
-  globalThis.__briefbox_pool ?? new Pool({ connectionString });
-
-export const db: NodePgDatabase = globalThis.__briefbox_db ?? drizzle(pool);
-
-if (process.env.NODE_ENV !== 'production') {
-  globalThis.__briefbox_pool = pool;
-  globalThis.__briefbox_db = db;
+function getDb(): NodePgDatabase {
+  if (!globalThis.__briefbox_db) {
+    globalThis.__briefbox_db = drizzle(getPool());
+  }
+  return globalThis.__briefbox_db;
 }
 
+// Lazy proxies: safe to import without DATABASE_URL at build time
+export const pool = new Proxy({} as Pool, {
+  get(_, prop) { return (getPool() as never)[prop]; },
+});
+
+export const db = new Proxy({} as NodePgDatabase, {
+  get(_, prop) { return (getDb() as never)[prop]; },
+});

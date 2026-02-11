@@ -34,8 +34,9 @@ Pull newsletters into the database.
 ---
 
 ## Milestone 2 – Summarization
-**Goal:**  
-Summarize newsletters with an LLM.
+**Goal:**
+Summarize newsletters via OpenRouter API.
+- OpenRouter integration (OpenAI-compatible SDK with base URL override)
 - JSON schema prompt: `{ bullets: [], change_note: "" }`
 - Store in `summary` table
 - Validate/retry logic
@@ -51,16 +52,7 @@ A triage screen for curating newsletters.
 
 ---
 
-## Milestone 4 – Embeddings + De-dupe
-**Goal:**  
-Skip duplicate/similar newsletters.
-- pgvector extension in Supabase
-- Embeddings for content similarity
-- De-dupe within 72h
-
----
-
-## Milestone 5 – Digest Builder
+## Milestone 4 – Digest Builder
 **Goal:**  
 Auto-generate daily/weekly digest pages.
 - Cron job triggers `/api/digest/build`
@@ -69,7 +61,7 @@ Auto-generate daily/weekly digest pages.
 
 ---
 
-## Milestone 6 – Source Controls & Privacy
+## Milestone 5 – Source Controls & Privacy
 **Goal:**  
 Give user control over sources.
 - Pin/mute sources
@@ -78,7 +70,7 @@ Give user control over sources.
 
 ---
 
-## Milestone 7 – Metrics & Evals
+## Milestone 6 – Metrics & Evals
 **Goal:**  
 Measure app performance and accuracy.
 - `/metrics` page
@@ -87,7 +79,7 @@ Measure app performance and accuracy.
 
 ---
 
-## Milestone 8 – Export & Share
+## Milestone 7 – Export & Share
 **Goal:**  
 Make digests portable.
 - Export digest to Markdown
@@ -96,7 +88,7 @@ Make digests portable.
 
 ---
 
-## Milestone 9 – Polish & Mascot
+## Milestone 8 – Polish & Mascot
 **Goal:**  
 Add personality and finishing touches.
 - Cat-in-box mascot in UI

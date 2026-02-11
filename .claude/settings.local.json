@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /Users/hanakim/projects/brief-box log --oneline -10)",
+      "Bash(pnpm add:*)",
+      "Bash(export PATH=\"/Users/hanakim/.nvm/versions/node/v22.16.0/bin:$PATH\")",
+      "Bash(node -e:*)",
+      "Bash(pnpm build:*)"
+    ]
+  }
+}
